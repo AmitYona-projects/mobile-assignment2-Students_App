@@ -15,4 +15,9 @@
     </style>
 
     <style name="Theme.StudentsApp" parent="Base.Theme.StudentsApp" />
+
+    <!-- Custom style to disable floating IME toolbar -->
+    <style name="TextInputEditText.NoToolbar" parent="Widget.MaterialComponents.TextInputEditText">
+        <item name="android:imeOptions">flagNoExtractUi</item>
+    </style>
 </resources>

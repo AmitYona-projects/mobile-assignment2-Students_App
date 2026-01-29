@@ -18,6 +18,7 @@ app/
 │   │   ├── Student.kt                    # Data model
 │   │   ├── StudentsRepository.kt         # In-memory database
 │   │   ├── StudentAdapter.kt             # RecyclerView adapter
+│   │   ├── Constants.kt                  # Application constants
 │   │   ├── StudentsListActivity.kt       # Main list screen
 │   │   ├── NewStudentActivity.kt         # Add new student screen
 │   │   ├── StudentDetailsActivity.kt     # Student details screen

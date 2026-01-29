@@ -66,7 +66,6 @@ class EditStudentActivity : AppCompatActivity() {
         }
 
         originalStudent?.let { oldStudent ->
-            // If ID changed, check if new ID already exists
             if (oldStudent.id != id && StudentsRepository.getStudentById(id) != null) {
                 Toast.makeText(this, "Student with this ID already exists", Toast.LENGTH_SHORT).show()
                 return
@@ -83,7 +82,6 @@ class EditStudentActivity : AppCompatActivity() {
             StudentsRepository.updateStudent(oldStudent.id, updatedStudent)
             Toast.makeText(this, "Student updated successfully", Toast.LENGTH_SHORT).show()
             
-            // If ID changed, navigate back to list, otherwise just finish
             if (oldStudent.id != id) {
                 val intent = Intent(this, StudentsListActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP

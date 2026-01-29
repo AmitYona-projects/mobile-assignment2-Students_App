@@ -51,7 +51,6 @@ class NewStudentActivity : AppCompatActivity() {
             return
         }
 
-        // Check if student with this ID already exists
         if (StudentsRepository.getStudentById(id) != null) {
             Toast.makeText(this, "Student with this ID already exists", Toast.LENGTH_SHORT).show()
             return

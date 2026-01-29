@@ -28,6 +28,8 @@ object StudentsRepository {
 
     fun toggleCheckStatus(id: String) {
         val student = students.find { it.id == id }
-        student?.isChecked = !(student?.isChecked ?: false)
+        student?.let {
+            it.isChecked = !it.isChecked
+        }
     }
 }

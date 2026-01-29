@@ -31,7 +31,6 @@ class StudentDetailsActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // Refresh details when returning to this activity
         loadStudentDetails()
     }
 
@@ -40,10 +39,10 @@ class StudentDetailsActivity : AppCompatActivity() {
             val student = StudentsRepository.getStudentById(id)
             student?.let {
                 binding.studentImage.setImageResource(R.drawable.student_pic)
-                binding.textViewName.text = "name: ${it.name}"
-                binding.textViewId.text = "id: ${it.id}"
-                binding.textViewPhone.text = "phone: ${it.phone}"
-                binding.textViewAddress.text = "address: ${it.address}"
+                binding.textViewName.text = "Name: ${it.name}"
+                binding.textViewId.text = "ID: ${it.id}"
+                binding.textViewPhone.text = "Phone: ${it.phone}"
+                binding.textViewAddress.text = "Address: ${it.address}"
                 binding.checkBox.isChecked = it.isChecked
             }
         }

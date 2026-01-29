@@ -19,17 +19,12 @@ class StudentsListActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         supportActionBar?.title = getString(R.string.students_list)
 
-        setupRecyclerView()
+        refreshRecyclerView()
         setupFab()
     }
 
     override fun onResume() {
         super.onResume()
-        // Refresh the list when returning to this activity
-        refreshRecyclerView()
-    }
-
-    private fun setupRecyclerView() {
         refreshRecyclerView()
     }
 
@@ -38,13 +33,11 @@ class StudentsListActivity : AppCompatActivity() {
         adapter = StudentAdapter(
             students = students,
             onItemClick = { student ->
-                // Open student details
                 val intent = Intent(this, StudentDetailsActivity::class.java)
                 intent.putExtra("STUDENT_ID", student.id)
                 startActivity(intent)
             },
             onCheckboxClick = { student ->
-                // Toggle check status
                 StudentsRepository.toggleCheckStatus(student.id)
                 refreshRecyclerView()
             }

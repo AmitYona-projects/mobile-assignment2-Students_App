@@ -22,7 +22,7 @@ class EditStudentActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = getString(R.string.edit_student)
 
-        studentId = intent.getStringExtra("STUDENT_ID")
+        studentId = intent.getStringExtra(Constants.EXTRA_STUDENT_ID)
         loadStudentData()
 
         binding.studentImage.setImageResource(R.drawable.student_pic)
@@ -61,13 +61,13 @@ class EditStudentActivity : AppCompatActivity() {
         val isChecked = binding.checkBox.isChecked
 
         if (name.isEmpty() || id.isEmpty()) {
-            Toast.makeText(this, "Name and ID are required", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_name_required), Toast.LENGTH_SHORT).show()
             return
         }
 
         originalStudent?.let { oldStudent ->
             if (oldStudent.id != id && StudentsRepository.getStudentById(id) != null) {
-                Toast.makeText(this, "Student with this ID already exists", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.error_student_id_exists), Toast.LENGTH_SHORT).show()
                 return
             }
 
@@ -80,7 +80,7 @@ class EditStudentActivity : AppCompatActivity() {
             )
 
             StudentsRepository.updateStudent(oldStudent.id, updatedStudent)
-            Toast.makeText(this, "Student updated successfully", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.success_student_updated), Toast.LENGTH_SHORT).show()
             
             if (oldStudent.id != id) {
                 val intent = Intent(this, StudentsListActivity::class.java)
@@ -94,18 +94,18 @@ class EditStudentActivity : AppCompatActivity() {
 
     private fun deleteStudent() {
         AlertDialog.Builder(this)
-            .setTitle("Delete Student")
-            .setMessage("Are you sure you want to delete this student?")
-            .setPositiveButton("Delete") { _, _ ->
+            .setTitle(getString(R.string.delete_student_title))
+            .setMessage(getString(R.string.delete_student_message))
+            .setPositiveButton(getString(R.string.delete)) { _, _ ->
                 studentId?.let { id ->
                     StudentsRepository.deleteStudent(id)
-                    Toast.makeText(this, "Student deleted successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.success_student_deleted), Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, StudentsListActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(intent)
                 }
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
 

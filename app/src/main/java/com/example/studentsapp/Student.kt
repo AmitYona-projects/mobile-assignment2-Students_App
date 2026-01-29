@@ -2,8 +2,8 @@ package com.example.studentsapp
 
 data class Student(
     val id: String,
-    var name: String,
-    var phone: String,
-    var address: String,
-    var isChecked: Boolean = false
+    val name: String,
+    val phone: String,
+    val address: String,
+    val isChecked: Boolean = false
 )

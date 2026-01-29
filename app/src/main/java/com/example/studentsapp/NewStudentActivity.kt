@@ -47,12 +47,12 @@ class NewStudentActivity : AppCompatActivity() {
         val isChecked = binding.checkBox.isChecked
 
         if (name.isEmpty() || id.isEmpty()) {
-            Toast.makeText(this, "Name and ID are required", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_name_required), Toast.LENGTH_SHORT).show()
             return
         }
 
         if (StudentsRepository.getStudentById(id) != null) {
-            Toast.makeText(this, "Student with this ID already exists", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_student_id_exists), Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -65,7 +65,7 @@ class NewStudentActivity : AppCompatActivity() {
         )
 
         StudentsRepository.addStudent(student)
-        Toast.makeText(this, "Student added successfully", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.success_student_added), Toast.LENGTH_SHORT).show()
         finish()
     }
 }

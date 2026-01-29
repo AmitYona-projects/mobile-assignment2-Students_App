@@ -19,7 +19,7 @@ class StudentsListActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         supportActionBar?.title = getString(R.string.students_list)
 
-        refreshRecyclerView()
+        setupRecyclerView()
         setupFab()
     }
 
@@ -28,13 +28,12 @@ class StudentsListActivity : AppCompatActivity() {
         refreshRecyclerView()
     }
 
-    private fun refreshRecyclerView() {
-        val students = StudentsRepository.getAllStudents()
+    private fun setupRecyclerView() {
         adapter = StudentAdapter(
-            students = students,
+            students = StudentsRepository.getAllStudents(),
             onItemClick = { student ->
                 val intent = Intent(this, StudentDetailsActivity::class.java)
-                intent.putExtra("STUDENT_ID", student.id)
+                intent.putExtra(Constants.EXTRA_STUDENT_ID, student.id)
                 startActivity(intent)
             },
             onCheckboxClick = { student ->
@@ -51,5 +50,22 @@ class StudentsListActivity : AppCompatActivity() {
             val intent = Intent(this, NewStudentActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun refreshRecyclerView() {
+        val students = StudentsRepository.getAllStudents()
+        adapter = StudentAdapter(
+            students = students,
+            onItemClick = { student ->
+                val intent = Intent(this, StudentDetailsActivity::class.java)
+                intent.putExtra(Constants.EXTRA_STUDENT_ID, student.id)
+                startActivity(intent)
+            },
+            onCheckboxClick = { student ->
+                StudentsRepository.toggleCheckStatus(student.id)
+                refreshRecyclerView()
+            }
+        )
+        binding.recyclerView.adapter = adapter
     }
 }

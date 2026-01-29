@@ -19,12 +19,12 @@ class StudentDetailsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = getString(R.string.student_details)
 
-        studentId = intent.getStringExtra("STUDENT_ID")
+        studentId = intent.getStringExtra(Constants.EXTRA_STUDENT_ID)
         loadStudentDetails()
 
         binding.buttonEdit.setOnClickListener {
             val intent = Intent(this, EditStudentActivity::class.java)
-            intent.putExtra("STUDENT_ID", studentId)
+            intent.putExtra(Constants.EXTRA_STUDENT_ID, studentId)
             startActivity(intent)
         }
     }
@@ -39,10 +39,10 @@ class StudentDetailsActivity : AppCompatActivity() {
             val student = StudentsRepository.getStudentById(id)
             student?.let {
                 binding.studentImage.setImageResource(R.drawable.student_pic)
-                binding.textViewName.text = "Name: ${it.name}"
-                binding.textViewId.text = "ID: ${it.id}"
-                binding.textViewPhone.text = "Phone: ${it.phone}"
-                binding.textViewAddress.text = "Address: ${it.address}"
+                binding.textViewName.text = getString(R.string.label_name, it.name)
+                binding.textViewId.text = getString(R.string.label_id, it.id)
+                binding.textViewPhone.text = getString(R.string.label_phone, it.phone)
+                binding.textViewAddress.text = getString(R.string.label_address, it.address)
                 binding.checkBox.isChecked = it.isChecked
             }
         }

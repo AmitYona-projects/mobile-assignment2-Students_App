@@ -18,7 +18,13 @@ object StudentsRepository {
     fun updateStudent(oldId: String, updatedStudent: Student) {
         val index = students.indexOfFirst { it.id == oldId }
         if (index != -1) {
-            students[index] = updatedStudent
+            // If ID changed, remove old entry and add new one
+            if (oldId != updatedStudent.id) {
+                students.removeAt(index)
+                students.add(updatedStudent)
+            } else {
+                students[index] = updatedStudent
+            }
         }
     }
 
@@ -29,7 +35,8 @@ object StudentsRepository {
     fun toggleCheckStatus(id: String) {
         val student = students.find { it.id == id }
         student?.let {
-            it.isChecked = !it.isChecked
+            val index = students.indexOf(it)
+            students[index] = it.copy(isChecked = !it.isChecked)
         }
     }
 }
